@@ -100,6 +100,11 @@ Other knobs in the same file:
   while launching, so it will briefly steal focus.
 - Sessions run with `--permission-mode auto`. Make sure that's what you
   want before pointing it at sensitive worktrees.
+- The default `BASE_PROMPT` and `HELPER_PROMPTS` reference a private
+  Slack channel, Datadog, and the `/codex:rescue` command — they won't
+  work out of the box unless you have the matching MCPs and Codex
+  configured. They're easy to swap for your own use case: just edit the
+  two constants at the top of `evaluate.py`.
 
 ## License
 
