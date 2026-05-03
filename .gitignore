@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.worktrees/
+.DS_Store
+.venv/
+.idea/
