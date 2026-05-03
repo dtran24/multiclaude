@@ -10,6 +10,36 @@ JSONL until it reaches `end_turn`, then pipes all of the final messages
 into a `claude -p` call that produces a clustered comparison and a
 synthesized recommendation.
 
+```
+                          BASE_PROMPT
+                               │
+          ┌────────────────────┼────────────────────┐
+          │                    │                    │
+          ▼                    ▼                    ▼
+       base only      base + helper[0]      base + helper[1]   …
+          │                    │                    │
+          ▼                    ▼                    ▼
+   ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+   │ git worktree │     │ git worktree │     │ git worktree │
+   │ Terminal tab │     │ Terminal tab │     │ Terminal tab │
+   │ claude REPL  │     │ claude REPL  │     │ claude REPL  │
+   └──────┬───────┘     └──────┬───────┘     └──────┬───────┘
+          │                    │                    │
+          │  poll session JSONL until end_turn      │
+          │                    │                    │
+          ▼                    ▼                    ▼
+     final text           final text           final text
+          │                    │                    │
+          └────────────────────┼────────────────────┘
+                               ▼
+                          judge prompt
+                          (claude -p)
+                               │
+                               ▼
+                       cluster summary  +
+                   synthesized recommendation
+```
+
 ## Requirements
 
 - macOS (controls Terminal.app via AppleScript / `osascript`)
